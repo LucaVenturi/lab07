@@ -54,11 +54,20 @@ public final class Transformers {
      * @param <O> output elements type
      */
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
-        final List<O> modifiedElements = new ArrayList<>();
-        for (I i : base) {
-            modifiedElements.add(transformer.call(i));
-        }
-        return modifiedElements;
+        // final List<O> modifiedElements = new ArrayList<>();
+        // for (I i : base) {
+        //     modifiedElements.add(transformer.call(i));
+        // }
+        // return modifiedElements;
+        return flattenTransform(base, new Function<I,Collection<? extends O>>() {
+
+            @Override
+            public Collection<? extends O> call(final I input) {
+                return List.of(transformer.call(input));
+            }
+            
+        });
+        
     }
 
     /**
@@ -74,17 +83,16 @@ public final class Transformers {
      * @param <I> type of the collection elements
      */
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
-        final List<I> elements = new ArrayList<>();
-        for (Collection<? extends I> coll : base) {
-            for (I i : coll) {
-                elements.add(i);
-            }
-        }
-        return elements;
+        // final List<I> elements = new ArrayList<>();
+        // for (Collection<? extends I> coll : base) {
+        //     for (I i : coll) {
+        //         elements.add(i);
+        //     }
+        // }
+        // return elements;
 
-        // return transform(base, new Function<I,O>() {
-            
-        // })
+        return flattenTransform(base, Function.identity());
+
     }
 
     /**
