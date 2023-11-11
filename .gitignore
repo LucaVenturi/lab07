@@ -1,4 +1,4 @@
 *.class
-./*/build/*
-./*/bin/*
-./*/.gradle/*
+./*/build/
+./*/bin/
+./*/.gradle/
