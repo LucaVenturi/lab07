@@ -31,6 +31,7 @@ public interface Function<I, O> {
             }
             
         };
+        // return (a) -> a; scoprirò se va bene quando vedremo le lambda.
     }
 
 }
